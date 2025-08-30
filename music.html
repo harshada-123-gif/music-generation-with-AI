@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Music Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f0f0f0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎶 AI Music Generator</h1>
+  <p>Click the button to generate a random melody!</p>
+  <button onclick="generateMusic()">Generate Music</button>
+
+  <script>
+    async function generateMusic() {
+      await Tone.start(); // Required for mobile autoplay
+      const synth = new Tone.Synth().toDestination();
+      const notes = ["C4", "D4", "E4", "G4", "A4", "B4"];
+      const melody = [];
+
+      // Generate a random melody sequence
+      for (let i = 0; i < 8; i++) {
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        melody.push(note);
+      }
+
+      // Play the melody
+      let time = 0;
+      melody.forEach(note => {
+        synth.triggerAttackRelease(note, "8n", Tone.now() + time);
+        time += 0.5;
+      });
+    }
+  </script>
+</body>
+</html>
+
